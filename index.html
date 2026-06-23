@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ali Alattar | Computational and Experimental Tools for Biological Systems</title>
+  <meta name="description" content="Ali Alattar builds computational and experimental tools for biological systems. Work across protein design, neural signal processing, biological modeling, and experimental biology, with research at the Institute for Protein Design (Baker Lab) and the NERD Lab.">
+  <link rel="canonical" href="https://alialattar.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alialattar.com/">
+  <meta property="og:title" content="Ali Alattar | Computational and Experimental Tools for Biological Systems">
+  <meta property="og:description" content="I build computational and experimental tools for biological systems. My work spans protein design, neural signal processing, biological modeling, and experimental biology.">
+  <meta property="og:image" content="https://alialattar.com/HeadShot.jpg">
+  <meta property="og:site_name" content="Ali Alattar">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ali Alattar | Computational and Experimental Tools for Biological Systems">
+  <meta name="twitter:description" content="I build computational and experimental tools for biological systems, across protein design, neural signal processing, and experimental biology.">
+  <meta name="twitter:image" content="https://alialattar.com/HeadShot.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #f8f6f1;
+      --white:   #ffffff;
+      --border:  #e6e2da;
+      --border2: #d8d3c8;
+      --text:    #1a1916;
+      --mid:     #423f39;
+      --muted:   #645f58;
+      --light:   #847f76;
+      /* single accent family: muted blue + graphite */
+      --navy:    #1c3557;
+      --navy2:   #274b7a;
+      --navy-bg: rgba(28, 53, 87, 0.06);
+      --slate:   #4c5763;
+      --slate-bg: rgba(76, 87, 99, 0.07);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+    /* SKIP LINK */
+    .skip-link {
+      position: fixed; top: -3rem; left: 1rem;
+      background: var(--navy); color: #fff;
+      padding: .5rem 1.1rem; border-radius: 0 0 6px 6px;
+      font-size: .85rem; font-weight: 600; text-decoration: none; z-index: 999;
+      transition: top .2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--navy);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* REDUCED MOTION */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 200;
+      background: rgba(248, 246, 241, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1120px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .85rem 2rem;
+    }
+    .nav-name {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 1.05rem; font-weight: 600;
+      color: var(--navy); letter-spacing: -.2px;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; align-items: center; gap: 1.4rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: .83rem; font-weight: 500;
+      letter-spacing: .2px; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--navy); }
+    .nav-links a.nav-cta { color: var(--navy); font-weight: 600; }
+    /* MOBILE NAV */
+    .nav-toggle {
+      display: none; background: none; border: none; cursor: pointer;
+      padding: .4rem; color: var(--navy);
+    }
+    @media (max-width: 720px) {
+      .nav-inner { padding: .75rem 1rem; }
+      .nav-toggle { display: flex; align-items: center; }
+      .nav-links {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; align-items: flex-start; gap: 0;
+        background: rgba(248,246,241,0.98); backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border); padding: .5rem 1.5rem 1rem;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a {
+        display: block; padding: .65rem 0; font-size: .92rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+    }
+
+    /* HERO */
+    #hero {
+      display: flex; align-items: center; justify-content: center;
+      padding: 9rem 2rem 5rem;
+      text-align: center;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-inner { max-width: 760px; margin: 0 auto; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .75rem; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1.5rem; flex-wrap: wrap; justify-content: center;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; display: inline-block; width: 24px; height: 1px;
+      background: var(--border2);
+    }
+
+    h1 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: clamp(2.7rem, 6vw, 4.2rem);
+      font-weight: 700; letter-spacing: -1.3px; line-height: 1.05;
+      color: var(--navy); margin-bottom: 1rem;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.15rem, 2.1vw, 1.45rem);
+      color: var(--text); line-height: 1.4;
+      margin-bottom: 1rem;
+      font-family: 'Lora', Georgia, serif;
+      font-weight: 500;
+    }
+
+    .hero-subline {
+      font-size: 1rem;
+      color: var(--mid);
+      line-height: 1.7;
+      max-width: 660px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .hero-tags {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: .4rem; margin-bottom: 2rem;
+    }
+    .hero-tag {
+      font-size: .76rem; font-weight: 600; letter-spacing: .2px;
+      padding: .32rem .8rem; border-radius: 999px;
+      background: var(--navy-bg); color: var(--navy);
+      border: 1px solid rgba(28,53,87,.14);
+    }
+
+    .hero-btns { display: flex; gap: .9rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .72rem 1.7rem; border-radius: 8px;
+      font-size: .88rem; font-weight: 600;
+      text-decoration: none; cursor: pointer; border: none;
+      transition: all .2s;
+    }
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { background: var(--navy2); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(28,53,87,.22); }
+    .btn-outline {
+      background: transparent; color: var(--navy);
+      border: 1.5px solid var(--border2);
+    }
+    .btn-outline:hover { border-color: var(--navy); background: var(--navy-bg); transform: translateY(-1px); }
+
+    .hero-resume {
+      display: inline-flex; align-items: center; gap: .4rem;
+      margin-top: 1.1rem; font-size: .84rem; font-weight: 500;
+      color: var(--muted); text-decoration: underline;
+      text-underline-offset: 3px; text-decoration-color: var(--border2);
+    }
+    .hero-resume:hover { color: var(--navy); text-decoration-color: currentColor; }
+    .hero-resume svg { width: 14px; height: 14px; }
+
+    .hero-figure { margin: 3rem auto 0; max-width: 600px; }
+    .hero-figure img { width: 100%; height: auto; display: block; }
+    @media (max-width: 520px) { .hero-figure { margin-top: 2.2rem; } }
+
+    /* Animated hero: clipped protein art that gently "breathes",
+       plus a self-drawing, live-pulsing neural waveform below it. */
+    .hero-anim { display: flex; flex-direction: column; gap: clamp(2px, 1.4vw, 12px); }
+    .hero-protein { width: 100%; aspect-ratio: 1376 / 520; overflow: hidden; }
+    .hero-protein img {
+      width: 100%; height: 100%; display: block;
+      object-fit: cover; object-position: top center;
+      transform-origin: 50% 62%;
+      animation: heroBreathe 7s ease-in-out infinite;
+    }
+    @keyframes heroBreathe {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.018); }
+    }
+    .hero-wave { display: block; width: 100%; height: auto; overflow: visible; }
+    .hero-wave .wave-line {
+      fill: none; stroke: #283145; stroke-width: 2.2;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 1; stroke-dashoffset: 1;
+      animation: heroDraw 2.4s ease-out .35s forwards;
+    }
+    .hero-wave .wave-live {
+      transform-box: fill-box; transform-origin: 50% 50%;
+      animation: heroWaveLive 5.5s ease-in-out 3s infinite;
+    }
+    .hero-wave .wave-pulse { fill: #283145; }
+    @keyframes heroDraw { to { stroke-dashoffset: 0; } }
+    @keyframes heroWaveLive {
+      0%, 100% { transform: scaleY(1); }
+      50%      { transform: scaleY(1.13); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-protein img { animation: none; }
+      .hero-wave .wave-line { animation: none; stroke-dashoffset: 0; }
+      .hero-wave .wave-live { animation: none; }
+      .hero-wave .wave-pulse { display: none; }
+    }
+
+    /* SHARED */
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 5.5rem 0; border-bottom: 1px solid var(--border); }
+    section:last-of-type { border-bottom: none; }
+    img { max-width: 100%; }
+    .text-link {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--border2);
+    }
+    .text-link:hover { color: var(--navy); text-decoration-color: currentColor; }
+
+    .sec-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--light); margin-bottom: .7rem;
+    }
+    h2.sec-title {
+      font-family: 'Lora', Georgia, serif;
+      font-size: clamp(1.7rem, 3vw, 2.2rem); font-weight: 600;
+      letter-spacing: -.5px; color: var(--navy); margin-bottom: .8rem;
+    }
+    .sec-intro { font-size: 1.02rem; color: var(--mid); max-width: 640px; line-height: 1.7; }
+
+    /* RESEARCH */
+    #research { background: var(--cream); }
+
+    /* two-domain summary */
+    .domain-grid { display: grid; gap: 1.2rem; margin: 2.6rem 0 1rem; }
+    @media (min-width: 760px) { .domain-grid { grid-template-columns: 1fr 1fr; } }
+    .domain-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-top: 3px solid var(--navy);
+      border-radius: 12px; padding: 1.6rem 1.7rem;
+      display: flex; flex-direction: column;
+    }
+    .domain-card h3 {
+      font-family: 'Lora', Georgia, serif; font-size: 1.2rem; font-weight: 600;
+      color: var(--text); margin-bottom: .55rem;
+    }
+    .domain-card p { font-size: .92rem; color: var(--mid); line-height: 1.65; margin-bottom: 1rem; }
+    .domain-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: auto; }
+
+    .pillar { margin-top: 3rem; scroll-margin-top: 5rem; }
+    .pillar-head { display: flex; align-items: baseline; gap: .8rem; margin-bottom: 1.3rem; flex-wrap: wrap; }
+    .pillar-tag {
+      font-size: .7rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+      padding: .28rem .75rem; border-radius: 6px; white-space: nowrap;
+      background: var(--navy); color: #fff;
+    }
+    .pillar-sub { font-size: .85rem; color: var(--muted); }
+
+    .tl-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.6rem 1.8rem;
+      transition: box-shadow .25s;
+    }
+    .tl-card:hover { box-shadow: 0 4px 24px rgba(28,53,87,.07); }
+
+    .tl-lab { font-size: .72rem; font-weight: 600; color: var(--muted); margin-bottom: .7rem; line-height: 1.5; }
+    .tl-body { font-size: .9rem; color: var(--mid); line-height: 1.7; margin-bottom: 1rem; }
+    .tl-body:last-of-type { margin-bottom: 0; }
+
+    .tl-tags, .featured-tags, .domain-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+    .tl-tag, .featured-tag {
+      font-size: .7rem; font-weight: 500; padding: .2rem .65rem;
+      border-radius: 999px; background: var(--cream);
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .domain-card .featured-tag { background: var(--cream); }
+
+    .tl-badges { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .9rem; }
+    .tl-badge {
+      font-size: .67rem; font-weight: 700; letter-spacing: .4px;
+      padding: .2rem .65rem; border-radius: 999px; text-transform: uppercase;
+    }
+    .badge-navy { background: var(--navy-bg); color: var(--navy); border: 1px solid rgba(28,53,87,.2); }
+    .badge-slate { background: var(--slate-bg); color: var(--slate); border: 1px solid rgba(76,87,99,.25); }
+
+    /* nested project list */
+    .tl-projects {
+      margin-top: 1.1rem; border-top: 1px solid var(--border);
+      padding-top: 1rem; display: flex; flex-direction: column; gap: .95rem;
+    }
+    .tl-project { display: flex; gap: .75rem; align-items: flex-start; }
+    .tl-project-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--border2); margin-top: .44rem; flex-shrink: 0;
+    }
+    .tl-project-name { font-size: .88rem; font-weight: 600; color: var(--text); margin-bottom: .22rem; }
+    .tl-project-desc { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+    .tl-project-primary .tl-project-dot { width: 9px; height: 9px; background: var(--navy); margin-top: .38rem; }
+    .tl-project-primary .tl-project-name { color: var(--navy); }
+
+    .resource-links, .pub-links { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1rem; }
+    .resource-link, .pub-link {
+      display: inline-flex; align-items: center;
+      padding: .32rem .72rem; border-radius: 999px;
+      border: 1px solid var(--border2);
+      color: var(--navy); background: var(--white);
+      font-size: .72rem; font-weight: 600; text-decoration: none;
+    }
+    .resource-link:hover, .pub-link:hover { border-color: var(--navy); background: var(--navy-bg); }
+
+    /* ABOUT */
+    #about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 360px; gap: 5rem; align-items: start; }
+    @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+    .about-text .sec-title { margin-bottom: 1.5rem; }
+    .about-text p {
+      color: var(--mid); font-size: .99rem; line-height: 1.8;
+      margin-bottom: 1.2rem; font-weight: 400;
+    }
+    .about-text p strong { color: var(--text); font-weight: 600; }
+
+    .about-sidebar { display: flex; flex-direction: column; }
+    .about-photo {
+      width: 160px; height: 160px;
+      border-radius: 50%; object-fit: cover;
+      border: 3px solid var(--border);
+      margin: 0 auto 1.4rem; display: block;
+      box-shadow: 0 4px 20px rgba(28,53,87,.10);
+    }
+    .sidebar-block {
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.4rem; margin-bottom: 1rem;
+    }
+    .sidebar-block-title {
+      font-size: .68rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--light); margin-bottom: .65rem;
+    }
+    .sidebar-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: .85rem; padding: .35rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .sidebar-row-label { color: var(--mid); font-weight: 500; }
+    .sidebar-row-val { color: var(--navy); font-weight: 600; text-align: right; white-space: nowrap; min-width: 4rem; }
+    .sidebar-row--stacked { flex-direction: column; align-items: flex-start; gap: .1rem; }
+    .sidebar-row--stacked .sidebar-row-val { text-align: left; white-space: normal; min-width: 0; font-size: .82rem; }
+
+    .edu-block { padding: .5rem 0; border-bottom: 1px solid var(--border); }
+    .edu-block:last-child { border-bottom: none; padding-bottom: 0; }
+    .edu-block-main { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; }
+    .edu-block-name { font-size: .86rem; font-weight: 600; color: var(--text); }
+    .edu-block-date { font-size: .82rem; font-weight: 600; color: var(--navy); white-space: nowrap; }
+    .edu-block-sub { font-size: .77rem; color: var(--muted); margin-top: .18rem; padding-left: .7rem; }
+
+    .highlight-row {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .4rem 0; border-bottom: 1px solid var(--border);
+      font-size: .85rem; color: var(--mid);
+    }
+    .highlight-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .sidebar-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
+      width: 100%; margin-top: .3rem; padding: .6rem 1rem;
+      background: var(--navy); color: #fff; border-radius: 8px;
+      font-size: .82rem; font-weight: 600; text-decoration: none; transition: background .2s;
+    }
+    .sidebar-btn:hover { background: var(--navy2); }
+    .sidebar-btn svg { width: 14px; height: 14px; }
+
+    /* PROJECTS */
+    #projects { background: var(--cream); }
+    .proj-group { margin-top: 3rem; }
+    .proj-group-title {
+      font-size: .72rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--navy);
+      margin-bottom: 1.2rem; padding-bottom: .6rem; border-bottom: 1px solid var(--border);
+    }
+    .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 1.1rem; }
+    .proj-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.4rem;
+      transition: box-shadow .25s, border-color .25s;
+      display: flex; flex-direction: column; gap: .6rem;
+    }
+    .proj-card:hover { box-shadow: 0 4px 20px rgba(28,53,87,.06); border-color: var(--border2); }
+    .proj-meta { font-size: .68rem; color: var(--light); font-weight: 600; letter-spacing: .4px; text-transform: uppercase; }
+    .proj-name { font-size: .98rem; font-weight: 600; color: var(--text); line-height: 1.3; font-family: 'Lora', Georgia, serif; }
+    .proj-context { font-size: .84rem; color: var(--mid); line-height: 1.6; }
+    .proj-bullets { list-style: none; display: flex; flex-direction: column; gap: .4rem; margin: .1rem 0 .2rem; }
+    .proj-bullets li { font-size: .83rem; color: var(--muted); line-height: 1.55; padding-left: 1rem; position: relative; }
+    .proj-bullets li::before { content: ''; position: absolute; left: 0; top: .55em; width: 5px; height: 5px; border-radius: 50%; background: var(--border2); }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: auto; padding-top: .3rem; }
+    .ptag {
+      font-size: .68rem; font-weight: 500; padding: .18rem .55rem;
+      border-radius: 999px; background: var(--cream);
+      border: 1px solid var(--border); color: var(--muted);
+    }
+
+    /* SKILLS */
+    #skills { background: var(--white); }
+    .skills-layout { margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 1.4rem; }
+    .skill-group { background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; }
+    .sg-title {
+      font-size: .7rem; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; margin-bottom: 1rem;
+      padding-bottom: .6rem; border-bottom: 1px solid var(--border);
+      color: var(--navy);
+    }
+    .sg-slate { color: var(--slate); }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .sp {
+      font-size: .78rem; font-weight: 500;
+      padding: .28rem .75rem; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--white);
+      color: var(--mid);
+    }
+
+    /* PUBLICATIONS */
+    #publications { background: var(--cream); }
+    .pubs-layout { display: grid; grid-template-columns: 3fr 2fr; gap: 4rem; margin-top: 3rem; }
+    @media (max-width: 780px) { .pubs-layout { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    .pub-section-title {
+      font-size: .7rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--light); margin-bottom: 1.2rem;
+      padding-bottom: .7rem; border-bottom: 1px solid var(--border);
+    }
+    .pub-item { display: flex; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); }
+    .pub-item:last-child { border-bottom: none; }
+    .pub-n { font-family: 'Lora', Georgia, serif; font-size: 1.05rem; color: var(--border2); font-weight: 700; min-width: 30px; line-height: 1.4; }
+    .pub-content { flex: 1; }
+    .pub-title { font-size: .9rem; font-weight: 600; color: var(--text); margin-bottom: .3rem; line-height: 1.4; }
+    .pub-authors { font-size: .8rem; color: var(--muted); margin-bottom: .25rem; }
+    .pub-authors strong { color: var(--mid); }
+    .pub-venue { font-size: .78rem; color: var(--light); font-style: italic; }
+    .pub-links { margin-top: .65rem; }
+    .pub-link { font-size: .68rem; padding: .24rem .6rem; }
+
+    .award-item { display: flex; gap: .9rem; align-items: flex-start; padding: .9rem 0; border-bottom: 1px solid var(--border); }
+    .award-item:last-child { border-bottom: none; }
+    .award-name { font-size: .88rem; font-weight: 600; color: var(--text); margin-bottom: .1rem; }
+    .award-from { font-size: .78rem; color: var(--muted); }
+
+    /* CONTACT */
+    #contact { background: var(--navy); border-bottom: none; }
+    .contact-inner { max-width: 680px; margin: 0 auto; text-align: center; padding: 5.5rem 2rem; }
+    .contact-inner .sec-label { color: rgba(255,255,255,.4); margin-bottom: .8rem; }
+    .contact-inner h2 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: clamp(2rem, 4vw, 2.6rem); font-weight: 600;
+      color: #fff; letter-spacing: -.5px; margin-bottom: 1rem;
+    }
+    .contact-inner p { color: rgba(255,255,255,.75); font-size: 1rem; line-height: 1.75; margin-bottom: 2.4rem; }
+    .contact-links { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
+    .c-link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .65rem 1.3rem; border-radius: 8px;
+      font-size: .85rem; font-weight: 600; text-decoration: none;
+      border: 1px solid rgba(255,255,255,.22);
+      color: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.07);
+      transition: all .2s;
+    }
+    .c-link:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.45); transform: translateY(-2px); }
+    .c-link--solid { background: #fff; color: var(--navy); border-color: #fff; }
+    .c-link--solid:hover { background: rgba(255,255,255,.88); }
+    .c-link svg { width: 15px; height: 15px; }
+
+    footer { background: #131f2e; text-align: center; padding: 1.5rem 2rem; font-size: .78rem; color: rgba(255,255,255,.4); letter-spacing: .3px; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 520px) {
+      .wrap { padding: 0 1rem; }
+      section { padding: 4rem 0; }
+      #hero { padding: 7rem 1rem 3.5rem; }
+      .hero-btns { align-items: stretch; }
+      .btn { width: 100%; justify-content: center; padding-inline: 1rem; }
+      .tl-card, .proj-card, .domain-card, .sidebar-block, .skill-group { border-radius: 10px; padding: 1.2rem; }
+      .contact-inner { padding: 4rem 1rem; }
+      .c-link { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-name">Ali Alattar</a>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <ul class="nav-links" id="primary-navigation">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="Ali_Alattar_CV.pdf" target="_blank" rel="noopener" class="nav-cta">Résumé</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main-content">
+
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">University of Washington &middot; Bioengineering &amp; Biochemistry</p>
+
+    <h1>Ali Alattar</h1>
+
+    <p class="hero-tagline">
+      I build computational and experimental tools for biological systems.
+    </p>
+
+    <p class="hero-subline">
+      My work spans protein design, neural signal processing, stimulation artifact rejection, and experimental
+      biology. I move between code, wet lab workflows, and hardware-facing systems to turn messy biological
+      questions into testable pipelines.
+    </p>
+
+    <div class="hero-tags" aria-label="Areas of work">
+      <span class="hero-tag">Computational Biology</span>
+      <span class="hero-tag">Neural Signal Processing</span>
+      <span class="hero-tag">Protein Design</span>
+      <span class="hero-tag">Experimental Biology</span>
+      <span class="hero-tag">Research Pipelines</span>
+    </div>
+
+    <div class="hero-btns">
+      <a href="#protein" class="btn btn-primary">Protein Design Work</a>
+      <a href="#neural" class="btn btn-primary">Neural Engineering Work</a>
+    </div>
+    <div>
+      <a href="Ali_Alattar_CV.pdf" target="_blank" rel="noopener" class="hero-resume" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Résumé (PDF)
+      </a>
+    </div>
+
+    <figure class="hero-figure">
+      <div class="hero-anim">
+        <div class="hero-protein">
+          <img src="assets/protein-interface-hero.webp" width="1376" height="768" decoding="async"
+               alt="Line drawing of two protein backbones meeting at a binding interface, with a neural signal waveform traced beneath them.">
+        </div>
+        <svg class="hero-wave" viewBox="0 0 1376 150" preserveAspectRatio="xMidYMid meet"
+             aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <g class="wave-live">
+            <path id="wavePath" class="wave-line" pathLength="1"
+                  d="M 70 92 H 340 C 360 92 372 86 392 86 L 414 100 L 432 74 L 452 106 L 472 82
+                     L 498 96 L 520 62 L 542 112 L 562 80 L 590 70 L 606 120 L 622 28 L 636 10
+                     L 650 140 L 664 100 L 690 72 L 712 110 L 734 62 L 756 112 L 778 84 L 806 72
+                     L 830 104 L 854 82 L 882 100 L 906 88 L 940 94 L 974 84 L 1006 92
+                     C 1020 92 1030 92 1040 92 H 1306"/>
+          </g>
+          <circle class="wave-pulse" r="4.2">
+            <animateMotion dur="3.6s" begin="2.7s" repeatCount="indefinite" rotate="auto" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <mpath href="#wavePath"/>
+            </animateMotion>
+            <animate attributeName="opacity" dur="3.6s" begin="2.7s" repeatCount="indefinite"
+                     values="0;1;1;1;0" keyTimes="0;0.08;0.5;0.92;1"/>
+          </circle>
+        </svg>
+      </div>
+    </figure>
+  </div>
+</section>
+
+
+<!-- RESEARCH (merged) -->
+<section id="research">
+  <div class="wrap">
+    <div class="sec-label reveal">Research</div>
+    <h2 class="sec-title reveal">One toolkit, applied across biology</h2>
+    <p class="sec-intro reveal">
+      One set of skills runs through my work: computational modeling, protein design evaluation, signal
+      processing, experimental validation, biological data analysis, and hardware-aware engineering. I use
+      them to design, measure, and interpret biological systems.
+    </p>
+
+    <!-- two-domain summary -->
+    <div class="domain-grid">
+      <article class="domain-card reveal">
+        <h3>Protein Design</h3>
+        <p>
+          I design and filter protein binders and degradation strategies with structure-based design tools,
+          and support their experimental testing in the wet lab.
+        </p>
+        <div class="domain-tags">
+          <span class="featured-tag">RFdiffusion</span>
+          <span class="featured-tag">AlphaFold</span>
+          <span class="featured-tag">LigandMPNN</span>
+          <span class="featured-tag">Protein Purification</span>
+        </div>
+      </article>
+      <article class="domain-card reveal">
+        <h3>Neural Engineering</h3>
+        <p>
+          I design stimulation experiments and build the signal-processing pipelines that recover clean
+          neural responses from noisy µECoG recordings.
+        </p>
+        <div class="domain-tags">
+          <span class="featured-tag">CCEP</span>
+          <span class="featured-tag">µECoG</span>
+          <span class="featured-tag">Artifact Rejection</span>
+          <span class="featured-tag">Python Signal Processing</span>
+        </div>
+      </article>
+    </div>
+
+    <!-- PROTEIN DETAIL -->
+    <div class="pillar reveal" id="protein">
+      <div class="pillar-head">
+        <span class="pillar-tag">Protein Design &amp; Molecular Engineering</span>
+        <span class="pillar-sub">Institute for Protein Design · <a class="text-link" href="https://www.bakerlab.org/" target="_blank" rel="noopener">Baker Lab</a> · PI: Dr. David Baker</span>
+      </div>
+
+      <div class="tl-card">
+        <div class="tl-lab">Computational design + wet-lab validation · 2024–Present</div>
+        <div class="tl-badges">
+          <span class="tl-badge badge-navy">Poster · UW Symposium 2025</span>
+          <span class="tl-badge badge-slate">Design-stage projects ongoing</span>
+        </div>
+        <div class="tl-projects">
+
+          <div class="tl-project tl-project-primary">
+            <div class="tl-project-dot"></div>
+            <div>
+              <div class="tl-project-name">Phosphotyrosine-Inducible Protein Switches (2024–2025)</div>
+              <div class="tl-project-desc">
+                I designed binders for a phosphorylation-inducible protein switch using an iterative LigandMPNN
+                and FastRelax pipeline, then filtered roughly 80,000 candidate designs on prediction confidence
+                (pLDDT, ipTM, PAE), RMSD, contacts and clashes, hydrogen bonds, shape complementarity, interface
+                energy, and ddG. I supported experimental validation through cloning, expression, Strep-Tactin
+                purification, SEC, and gel electrophoresis, and presented the work at the UW Undergraduate
+                Research Symposium.
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-project">
+            <div class="tl-project-dot"></div>
+            <div>
+              <div class="tl-project-name">LDL-Targeting Binder Strategy (2025–2026)</div>
+              <div class="tl-project-desc">
+                I contributed to designing LDL-targeting binders for a degradation strategy, and supported the
+                experimental validation through protein purification, yeast workflows, and flow-cytometry-based
+                binding assays. I helped interpret the assay data to guide the next design round.
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-project">
+            <div class="tl-project-dot"></div>
+            <div>
+              <div class="tl-project-name">BRD4-Targeted Binder Design (2026, ongoing)</div>
+              <div class="tl-project-desc">
+                I work on binder design against BRD4, an epigenetic regulator and oncology-relevant target. I
+                generate and filter candidate binders against the target surface and prepare promising designs
+                for experimental testing.
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="tl-tags" style="margin-top: 1rem;">
+          <span class="tl-tag">RFdiffusion</span>
+          <span class="tl-tag">AlphaFold</span>
+          <span class="tl-tag">LigandMPNN</span>
+          <span class="tl-tag">Rosetta / FastRelax</span>
+          <span class="tl-tag">Protein Purification</span>
+          <span class="tl-tag">SEC</span>
+          <span class="tl-tag">Flow Cytometry</span>
+        </div>
+        <div class="resource-links" aria-label="Protein design links">
+          <a class="resource-link" href="https://new.expo.uw.edu/expo/apply/736/proceedings/result?mentor_name=Cullen+Demakis" target="_blank" rel="noopener">UW Symposium Entry</a>
+          <a class="resource-link" href="https://www.ipd.uw.edu/" target="_blank" rel="noopener">Institute for Protein Design</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEURAL DETAIL -->
+    <div class="pillar reveal" id="neural">
+      <div class="pillar-head">
+        <span class="pillar-tag">Neural Engineering &amp; Closed-Loop Systems</span>
+        <span class="pillar-sub"><a class="text-link" href="https://sites.bioe.uw.edu/yazdan-azadeh/" target="_blank" rel="noopener">NERD Lab</a> · Yazdan-Shahmorad Lab · PI: Dr. Azadeh Yazdan-Shahmorad</span>
+      </div>
+
+      <div class="tl-card">
+        <div class="tl-lab">UW College of Engineering &amp; UW Medicine · 2024–Present</div>
+        <div class="tl-badges">
+          <span class="tl-badge badge-navy">WRF Fellow</span>
+          <span class="tl-badge badge-slate">2 manuscripts in preparation</span>
+        </div>
+        <div class="tl-projects">
+
+          <div class="tl-project tl-project-primary">
+            <div class="tl-project-dot"></div>
+            <div>
+              <div class="tl-project-name">CCEP Artifact Rejection: Capstone &amp; WRF Project (2025–2026)</div>
+              <div class="tl-project-desc">
+                I designed the stimulation protocols, collected multi-channel micro-ECoG recordings from rat
+                cortex, and built the Python pipeline for trial alignment, baseline correction, filtering,
+                artifact-template reconstruction and subtraction, visualization, response comparison, and
+                electrode-level quality control. I am extending it toward near real-time processing, using
+                model-based and machine-learning-informed approaches to reconstruct artifact templates for
+                closed-loop neuromodulation research.
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-project">
+            <div class="tl-project-dot"></div>
+            <div>
+              <div class="tl-project-name">Hebbian Plasticity &amp; Chemogenetic Facilitation (2024–2025)</div>
+              <div class="tl-project-desc">
+                Supporting a senior-led study of chemogenetic disinhibition and paired stimulation in rat
+                somatosensory cortex, I was lead surgeon on 5 of 30+ procedures. Certified in three rodent surgical protocols,
+                I ran viral injections, physiological monitoring, tissue processing, and fluorescence-based
+                verification of viral expression.
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-project">
+            <div class="tl-project-dot"></div>
+            <div>
+              <div class="tl-project-name">Spike Sorting &amp; Neural Decoding</div>
+              <div class="tl-project-desc">
+                I evaluated Kilosort4 spike-sorting for the chemogenetic project. In parallel coursework, I
+                built a multi-unit activity pipeline (MAD-based spike thresholding with raster and PSTH
+                analysis) to compare neural entrainment across constant, 3 Hz, and 10 Hz stimulation.
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="tl-tags" style="margin-top: 1rem;">
+          <span class="tl-tag">CCEP Analysis</span>
+          <span class="tl-tag">Stimulation Artifact Rejection</span>
+          <span class="tl-tag">µECoG</span>
+          <span class="tl-tag">Closed-Loop Neuromodulation</span>
+          <span class="tl-tag">Spike Sorting</span>
+          <span class="tl-tag">Electrophysiology</span>
+        </div>
+        <div class="resource-links" aria-label="Neural engineering links">
+          <a class="resource-link" href="assets/CapstoneProject_AlattarAli_v10.pdf" target="_blank" rel="noopener">Capstone Proposal</a>
+          <a class="resource-link" href="https://www.washington.edu/undergradresearch/2025-26-wrf-fellows/" target="_blank" rel="noopener">WRF Profile</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMP BIO DETAIL (equal third area) -->
+    <div class="pillar reveal" id="compbio">
+      <div class="pillar-head">
+        <span class="pillar-tag">Computational Biology, Data &amp; Modeling</span>
+        <span class="pillar-sub">Independent projects &amp; early research</span>
+      </div>
+
+      <div class="tl-card">
+        <div class="tl-lab">Python &amp; MATLAB modeling, analysis, and molecular biology</div>
+        <div class="tl-projects">
+
+          <div class="tl-project">
+            <div class="tl-project-dot"></div>
+            <div>
+              <div class="tl-project-name">Environmental Microbiology: SPSCC with NASA Johnson Space Center (2023)</div>
+              <div class="tl-project-desc">
+                My first research examined microbial diversity in extreme ice-cave samples as analogs for
+                extraterrestrial environments. I performed DNA purification, 16S rRNA PCR, gel-electrophoresis
+                verification, and BLAST-based phylogenetic interpretation of unknown samples.
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-project">
+            <div class="tl-project-dot"></div>
+            <div>
+              <div class="tl-project-name">Computational Modeling &amp; Data Analysis</div>
+              <div class="tl-project-desc">
+                I model and analyze biological systems in Python (NumPy, pandas, SciPy, scikit-learn) and
+                MATLAB: Hodgkin-Huxley bioelectricity models, control-systems analysis of signaling pathways,
+                ODE models of disease dynamics, and geospatial and public-health data analysis.
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="tl-tags" style="margin-top: 1rem;">
+          <span class="tl-tag">Python · NumPy · pandas · SciPy</span>
+          <span class="tl-tag">scikit-learn</span>
+          <span class="tl-tag">Bioelectricity Modeling</span>
+          <span class="tl-tag">Control Systems</span>
+          <span class="tl-tag">16S rRNA · BLAST</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+
+      <div class="about-text reveal">
+        <div class="sec-label">About</div>
+        <h2 class="sec-title">Systems Engineering for Biological &amp; Neural Research</h2>
+
+        <p>
+          I am a University of Washington <strong>Bioengineering and Biochemistry</strong> Honors student with a
+          Data Science option, graduating in August 2026. My work sits in research environments where
+          experiments, computation, and engineering all have to hold together. I have worked across neural
+          engineering, protein design, electrophysiology, signal processing, computational biology, wet-lab
+          validation, and data analysis. The common thread is not a single biological scale or disease area. It
+          is building careful, usable systems for difficult biological questions.
+        </p>
+
+        <p>
+          In the <strong><a class="text-link" href="https://sites.bioe.uw.edu/yazdan-azadeh/" target="_blank" rel="noopener">Neural Engineering, Repair &amp; Design Lab</a></strong>,
+          I lead a Washington Research Foundation Fellowship project on stimulation-evoked neural responses,
+          artifact rejection, and near real-time processing for closed-loop neuromodulation research. I designed
+          stimulation protocols, collected and analyzed multi-channel micro-ECoG recordings from rat cortex, and
+          built Python pipelines for trial alignment, filtering, baseline correction, artifact-template
+          reconstruction, subtraction, visualization, response comparison, and electrode-level quality control.
+          That work trained me to deal with messy biological signals, hardware constraints, experimental
+          variability, and analysis decisions where small details can change the interpretation.
+        </p>
+
+        <p>
+          At the <strong><a class="text-link" href="https://www.bakerlab.org/" target="_blank" rel="noopener">Institute for Protein Design (Baker Lab)</a></strong>,
+          I work on computational and experimental protein design. My projects have included
+          phosphorylation-inducible protein switches, LDL-targeting binder strategies, and BRD4-targeted binder
+          design. I have used RFdiffusion, LigandMPNN, Rosetta/FastRelax, AlphaFold/Chai-1, Python, and Bash to
+          generate, organize, and filter large candidate sets. I have also supported experimental validation
+          through cloning, expression, protein purification, SEC, gel electrophoresis, yeast workflows,
+          flow-cytometry-based binding assays, and assay-data interpretation.
+        </p>
+
+        <p>
+          Across these projects, I am strongest when the problem is not already clean. I can write analysis
+          code, interpret biological data, troubleshoot experimental systems, document methods, and communicate
+          results clearly. I am looking for research roles where I can contribute as a hands-on early-career
+          researcher who learns quickly, works carefully, and builds tools that make biological data more
+          reliable and useful.
+        </p>
+      </div>
+
+      <div class="about-sidebar reveal">
+        <img src="HeadShot.jpg" alt="Portrait of Ali Alattar" class="about-photo" width="160" height="160">
+        <div class="sidebar-block">
+          <div class="sidebar-block-title">Education</div>
+          <div class="edu-block">
+            <div class="edu-block-main">
+              <span class="edu-block-name">B.S. Bioengineering, Honors</span>
+              <span class="edu-block-date">2026</span>
+            </div>
+            <div class="edu-block-sub">Data Science Option · University of Washington</div>
+          </div>
+          <div class="edu-block">
+            <div class="edu-block-main">
+              <span class="edu-block-name">B.S. Biochemistry, Honors</span>
+              <span class="edu-block-date">2026</span>
+            </div>
+            <div class="edu-block-sub">University of Washington</div>
+          </div>
+          <div class="edu-block">
+            <div class="edu-block-main">
+              <span class="edu-block-name">A.A. Biology</span>
+              <span class="edu-block-date">4.0 GPA</span>
+            </div>
+            <div class="edu-block-sub">South Puget Sound Community College</div>
+          </div>
+          <div class="edu-block">
+            <div class="edu-block-main">
+              <span class="edu-block-name">UW Overall GPA</span>
+              <span class="edu-block-date">3.85</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-block">
+          <div class="sidebar-block-title">Highlights</div>
+          <div class="highlight-row">Washington Research Foundation Fellow</div>
+          <div class="highlight-row">2+ years of research experience across 3 labs</div>
+          <div class="highlight-row">Lead surgeon on 10+ of 40+ rodent surgeries</div>
+          <div class="highlight-row">2 manuscripts in preparation · 2 posters</div>
+          <div class="highlight-row">Research across neural engineering, protein design &amp; data</div>
+          <div class="highlight-row">Dean's List, all quarters</div>
+        </div>
+
+        <div class="sidebar-block">
+          <div class="sidebar-block-title">Contact</div>
+          <div class="sidebar-row sidebar-row--stacked">
+            <span class="sidebar-row-label">Email</span>
+            <span class="sidebar-row-val"><a href="mailto:ali.ashraf.alattar@gmail.com" style="color:inherit;text-decoration:none;">ali.ashraf.alattar@gmail.com</a></span>
+          </div>
+          <div class="sidebar-row">
+            <span class="sidebar-row-label">Location</span>
+            <span class="sidebar-row-val">Seattle, WA</span>
+          </div>
+          <div class="sidebar-row">
+            <span class="sidebar-row-label">Open to</span>
+            <span class="sidebar-row-val">Relocation</span>
+          </div>
+          <a href="Ali_Alattar_CV.pdf" target="_blank" rel="noopener" class="sidebar-btn" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Résumé (PDF)
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- SELECTED PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-label reveal">Selected Projects</div>
+    <h2 class="sec-title reveal">Coursework &amp; independent projects</h2>
+    <p class="sec-intro reveal">
+      A focused selection of technical projects, grouped by area.
+    </p>
+
+    <!-- GROUP 1: Neural Signals & Control -->
+    <div class="proj-group reveal">
+      <div class="proj-group-title">Neural Signals &amp; Control</div>
+      <div class="proj-grid">
+
+        <article class="proj-card">
+          <div class="proj-meta">BIOEN 460 · Neural Engineering · Autumn 2025</div>
+          <div class="proj-name">Multi-Unit Activity Extraction from ECoG</div>
+          <p class="proj-context">Built a spike-detection pipeline to compare neural entrainment under different optical stimulation rates.</p>
+          <ul class="proj-bullets">
+            <li>Applied 500–5000 Hz zero-phase bandpass filtering and robust MAD-based thresholding</li>
+            <li>Generated raster plots and 20 ms PSTHs across constant, 3 Hz, and 10 Hz stimulation</li>
+          </ul>
+          <div class="proj-tags"><span class="ptag">Python</span><span class="ptag">Spike Detection</span><span class="ptag">PSTH</span><span class="ptag">Neural Decoding</span></div>
+        </article>
+
+        <article class="proj-card">
+          <div class="proj-meta">BIOEN 461 · Neural Engineering Tech Studio · Spring 2026</div>
+          <div class="proj-name">EMG-Guided Stimulation Prototype</div>
+          <p class="proj-context">An adaptive stimulation system that sets its output from live EMG instead of delivering a fixed dose.</p>
+          <ul class="proj-bullets">
+            <li>Built the EMG acquisition and processing path and derived fatigue and recovery metrics from the signal</li>
+            <li>Translated those metrics into embedded control logic and the experimental protocol to test it</li>
+          </ul>
+          <div class="proj-tags"><span class="ptag">EMG</span><span class="ptag">Signal Acquisition</span><span class="ptag">Embedded Control</span><span class="ptag">Closed-Loop Control</span></div>
+        </article>
+
+        <article class="proj-card">
+          <div class="proj-meta">BIOEN 438 · Biological Control Systems · Winter 2026</div>
+          <div class="proj-name">Closed-Loop DBS Control for Parkinson's Disease</div>
+          <p class="proj-context">Technical review of model-based feedback control for deep brain stimulation.</p>
+          <ul class="proj-bullets">
+            <li>Evaluated thalamic relay reliability and stimulation-energy tradeoffs</li>
+            <li>Assessed PID-inspired controllers and limits in stability, sensing, and implementation</li>
+          </ul>
+          <div class="proj-tags"><span class="ptag">Closed-Loop DBS</span><span class="ptag">PID Control</span><span class="ptag">Neural Control Systems</span></div>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- GROUP 2: Computational Biology & Data -->
+    <div class="proj-group reveal">
+      <div class="proj-group-title">Computational Biology &amp; Data</div>
+      <div class="proj-grid">
+
+        <article class="proj-card">
+          <div class="proj-meta">CSE 163 · Intermediate Data Programming · Summer 2024</div>
+          <div class="proj-name">Chronic Disease Analytics Across Massachusetts Municipalities</div>
+          <p class="proj-context">Merged eight public-health and socioeconomic datasets to analyze chronic-disease trends.</p>
+          <ul class="proj-bullets">
+            <li>Cleaned and joined data on cancer, cardiovascular disease, and stroke (2007–2014)</li>
+            <li>Built a decision-tree regressor to estimate disease burden from income and unemployment features</li>
+          </ul>
+          <div class="proj-tags"><span class="ptag">Python</span><span class="ptag">pandas</span><span class="ptag">scikit-learn</span><span class="ptag">seaborn</span></div>
+        </article>
+
+        <article class="proj-card">
+          <div class="proj-meta">BIOEN 484 · Computational Modeling of Bioelectricity · Autumn 2025</div>
+          <div class="proj-name">Bioelectrical Computational Models</div>
+          <p class="proj-context">Examined and critiqued models of membrane potential and action-potential propagation.</p>
+          <ul class="proj-bullets">
+            <li>Worked within the Hodgkin-Huxley framework on Linux-based scientific computing</li>
+            <li>Evaluated model assumptions, numerical methods, and biological fidelity</li>
+          </ul>
+          <div class="proj-tags"><span class="ptag">Hodgkin-Huxley</span><span class="ptag">Numerical Analysis</span><span class="ptag">Linux</span></div>
+        </article>
+
+        <article class="proj-card">
+          <div class="proj-meta">BIOEN 438 · Biological Control Systems · Winter 2026</div>
+          <div class="proj-name">Closed-Loop Control of Insulin–GLUT4 Signaling</div>
+          <p class="proj-context">Control-design workflow around an SBML insulin-signaling model.</p>
+          <ul class="proj-bullets">
+            <li>Identified a transfer function with insulin as input and GLUT4 as output</li>
+            <li>Analyzed root-locus stability and proposed PI control for setpoint tracking</li>
+          </ul>
+          <div class="proj-tags"><span class="ptag">Python</span><span class="ptag">Tellurium</span><span class="ptag">ControlSBML</span><span class="ptag">Root Locus</span></div>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- GROUP 3: Additional technical work -->
+    <div class="proj-group reveal">
+      <div class="proj-group-title">Additional technical work</div>
+      <div class="proj-grid">
+
+        <article class="proj-card">
+          <div class="proj-meta">CSE 163 · Intermediate Data Programming · Summer 2024</div>
+          <div class="proj-name">TF-IDF Search Engine</div>
+          <p class="proj-context">Built a document-ranking search engine in Python: TF-IDF scoring over an inverted index, ranked across text and HTML corpora and tested with pytest.</p>
+          <div class="proj-tags"><span class="ptag">Python OOP</span><span class="ptag">TF-IDF</span><span class="ptag">pytest</span></div>
+        </article>
+
+        <article class="proj-card">
+          <div class="proj-meta">BIOC 451 · Honors Biochemistry · Winter 2025</div>
+          <div class="proj-name">IDH Mutation &amp; Metabolic Reprogramming in Cancer</div>
+          <p class="proj-context">Literature synthesis on IDH1/IDH2 gain-of-function mutations, 2-HG accumulation, and targeted-therapy strategies for glioma and AML.</p>
+          <div class="proj-tags"><span class="ptag">Cancer Biochemistry</span><span class="ptag">Targeted Therapy</span></div>
+        </article>
+
+        <article class="proj-card">
+          <div class="proj-meta">BIOC 450 · Honors Biochemistry · Autumn 2024</div>
+          <div class="proj-name">Cancer Metabolism &amp; Glucose-Independent Tumor Growth</div>
+          <p class="proj-context">Review connecting the Warburg effect, glutamine metabolism, and PCK2 activity to tumor growth under glucose deprivation.</p>
+          <div class="proj-tags"><span class="ptag">Cancer Metabolism</span><span class="ptag">Warburg Effect</span></div>
+        </article>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-label reveal">Toolkit</div>
+    <h2 class="sec-title reveal">Skills &amp; Methods</h2>
+    <p class="sec-intro reveal">Capabilities spanning computational design, experimental biology, and signal and data analysis.</p>
+
+    <div class="skills-layout">
+
+      <div class="skill-group reveal">
+        <div class="sg-title">Programming &amp; Data</div>
+        <div class="skill-pills">
+          <span class="sp">Python</span><span class="sp">NumPy</span><span class="sp">pandas</span>
+          <span class="sp">SciPy</span><span class="sp">scikit-learn</span><span class="sp">PyTorch</span>
+          <span class="sp">MATLAB</span><span class="sp">Bash</span>
+          <span class="sp">Git</span><span class="sp">Linux</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="sg-title">Protein Design &amp; Structural Biology</div>
+        <div class="skill-pills">
+          <span class="sp">RFdiffusion</span><span class="sp">AlphaFold</span><span class="sp">Chai-1</span>
+          <span class="sp">LigandMPNN</span><span class="sp">Rosetta / FastRelax</span>
+          <span class="sp">PyMOL</span><span class="sp">Binder-interface analysis</span>
+          <span class="sp">Structure prediction</span><span class="sp">BLAST</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="sg-title">Neural Engineering &amp; Signal Processing</div>
+        <div class="skill-pills">
+          <span class="sp">Biosignal processing</span><span class="sp">µECoG</span>
+          <span class="sp">CCEP analysis</span><span class="sp">Stimulation artifact rejection</span>
+          <span class="sp">Evoked potentials</span><span class="sp">Template subtraction</span>
+          <span class="sp">Closed-loop systems</span><span class="sp">Stimulation protocol design</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="sg-title sg-slate">Experimental Biology</div>
+        <div class="skill-pills">
+          <span class="sp">Golden Gate cloning</span><span class="sp">Protein expression</span>
+          <span class="sp">Strep-Tactin purification</span><span class="sp">SEC</span>
+          <span class="sp">Gel electrophoresis</span><span class="sp">Yeast workflows</span>
+          <span class="sp">Flow-cytometry binding assays</span><span class="sp">Rodent surgery</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="sg-title sg-slate">Modeling &amp; Engineering Tools</div>
+        <div class="skill-pills">
+          <span class="sp">COMSOL</span><span class="sp">Control systems</span>
+          <span class="sp">ODE modeling</span><span class="sp">Bioelectricity modeling</span>
+          <span class="sp">Arduino / C</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- PUBLICATIONS & RECOGNITION -->
+<section id="publications">
+  <div class="wrap">
+    <div class="sec-label reveal">Output</div>
+    <h2 class="sec-title reveal">Research Output &amp; Recognition</h2>
+
+    <div class="pubs-layout">
+
+      <div class="reveal">
+        <div class="pub-section-title">Poster Presentations</div>
+
+        <div class="pub-item">
+          <div class="pub-n">[P1]</div>
+          <div class="pub-content">
+            <div class="pub-title">De Novo Design of Phosphotyrosine Sensory Domains</div>
+            <div class="pub-authors"><strong>A. Alattar</strong>, K. Ding, N. Qing, C. Demakis, K. Shelley, and D. Baker.</div>
+            <div class="pub-venue">UW Annual Undergraduate Research Symposium, Seattle, WA, 2025.</div>
+            <div class="pub-links" aria-label="Poster links">
+              <a class="pub-link" href="https://new.expo.uw.edu/expo/apply/736/proceedings/result?mentor_name=Cullen+Demakis" target="_blank" rel="noopener">UW Symposium Entry</a>
+              <a class="pub-link" href="https://www.bakerlab.org/" target="_blank" rel="noopener">Baker Lab</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-n">[P2]</div>
+          <div class="pub-content">
+            <div class="pub-title">Robust Real-Time Artifact Processing for Brain Stimulation and Connectivity Mapping</div>
+            <div class="pub-authors"><strong>A. Alattar</strong>, Shan Y, Yazdan-Shahmorad A.</div>
+            <div class="pub-venue">UW Annual Undergraduate Research Symposium, Seattle, WA, 2026.</div>
+            <div class="pub-links" aria-label="Poster links">
+              <a class="pub-link" href="https://www.washington.edu/urs/" target="_blank" rel="noopener">UW Symposium</a>
+              <a class="pub-link" href="https://sites.bioe.uw.edu/yazdan-azadeh/" target="_blank" rel="noopener">NERD Lab</a>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <div class="pub-section-title">Manuscripts in Preparation</div>
+
+          <div class="pub-item">
+            <div class="pub-n">[1]</div>
+            <div class="pub-content">
+              <div class="pub-title">Robust Real-Time Artifact Processing for Brain Stimulation and Connectivity Mapping</div>
+              <div class="pub-authors"><strong>Alattar A</strong>, Shan Y, Schwock F, Yazdan-Shahmorad A.</div>
+              <div class="pub-venue">Manuscript in preparation.</div>
+              <div class="pub-links" aria-label="Manuscript links">
+                <a class="pub-link" href="https://sites.bioe.uw.edu/yazdan-azadeh/" target="_blank" rel="noopener">NERD Lab</a>
+                <a class="pub-link" href="assets/CapstoneProject_AlattarAli_v10.pdf" target="_blank" rel="noopener">Capstone Proposal</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="pub-item">
+            <div class="pub-n">[2]</div>
+            <div class="pub-content">
+              <div class="pub-title">Engaging Homeostatic Mechanisms to Facilitate Stimulation-Induced Hebbian Connectivity Change</div>
+              <div class="pub-authors">Khateeb K, Shan Y, Schwock F, Pierce A, Montalvo Vargo S, Zhou J, Stanis N, Belloir T, <strong>Alattar A</strong>, Gileva D, Cabrera A, Chamanzar M, Yazdan-Shahmorad A.</div>
+              <div class="pub-venue">Manuscript in preparation.</div>
+              <div class="pub-links" aria-label="Manuscript links">
+                <a class="pub-link" href="https://sites.bioe.uw.edu/yazdan-azadeh/" target="_blank" rel="noopener">NERD Lab</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="pub-section-title">Awards &amp; Honors</div>
+
+        <div class="award-item">
+          <div>
+            <div class="award-name">Washington Research Foundation Fellow (WRF)</div>
+            <div class="award-from"><a class="text-link" href="https://www.washington.edu/undergradresearch/2025-26-wrf-fellows/" target="_blank" rel="noopener">University of Washington</a></div>
+          </div>
+        </div>
+        <div class="award-item">
+          <div>
+            <div class="award-name">Dean's List, All Academic Quarters</div>
+            <div class="award-from">University of Washington and South Puget Sound Community College</div>
+          </div>
+        </div>
+        <div class="award-item">
+          <div>
+            <div class="award-name">Engineering General Scholarship 2024–2025</div>
+            <div class="award-from"><a class="text-link" href="https://www.engr.washington.edu/current/tuition-scholarships" target="_blank" rel="noopener">UW College of Engineering</a></div>
+          </div>
+        </div>
+        <div class="award-item">
+          <div>
+            <div class="award-name">Wayne and Grace Stanley Scholarship in Engineering</div>
+            <div class="award-from">University of Washington</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <div class="pub-section-title">Teaching &amp; Service</div>
+          <div class="award-item">
+            <div>
+              <div class="award-name">Teaching Assistant, BIOEN 325: Biotransport I</div>
+              <div class="award-from">UW Bioengineering, Autumn 2025</div>
+            </div>
+          </div>
+          <div class="award-item">
+            <div>
+              <div class="award-name">Teaching Assistant, BIOEN 316: Biosignal Processing</div>
+              <div class="award-from">UW Bioengineering, Spring 2025</div>
+            </div>
+          </div>
+          <div class="award-item">
+            <div>
+              <div class="award-name">Undergraduate Mentorship Chair, BMES at UW</div>
+              <div class="award-from">70+ mentor-mentee pairs, 2025–2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="sec-label">Get in Touch</div>
+    <h2>Available for research roles</h2>
+    <p>
+      Available for research and research engineering roles involving computational biology, protein design,
+      neural data, biological modeling, or experimental systems. I am interested in teams that value technical
+      range, careful analysis, and the ability to move between computation and experiment. Based in Seattle and
+      open to relocation.
+    </p>
+    <div class="contact-links">
+      <a class="c-link c-link--solid" href="Ali_Alattar_CV.pdf" target="_blank" rel="noopener" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Résumé (PDF)
+      </a>
+      <a class="c-link" href="mailto:ali.ashraf.alattar@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Email
+      </a>
+      <a class="c-link" href="https://www.linkedin.com/in/ali-alattar-b059232b2" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a class="c-link" href="https://github.com/aliashrafalattar-lab" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>© 2026 Ali Alattar · University of Washington · Bioengineering &amp; Biochemistry · Neural Engineering, Protein Design &amp; Computational Biology</footer>
+
+<script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  if (navToggle && navLinks) {
+    const closeNav = () => {
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeNav);
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeNav();
+    });
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 4) * 70 + 'ms';
+    io.observe(el);
+  });
+</script>
+
+</body>
+</html>
